@@ -17,3 +17,13 @@ services:
       - prometheus
     ports:
       - "3000:3000" # the default port used by Grafana
+  dcgm-exporter:
+    image: nvidia/dcgm-exporter:4.3.1-4.4.1-ubuntu22.04
+    gpus: all
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=utility,compute
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "9400:9400"
+    restart: unless-stopped
